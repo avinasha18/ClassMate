@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 Int     @id @default(autoincrement())
+  registrationNumber String  @unique
+  fullName           String
+  email              String  @unique
+  password           String
+  tag                String
+  college            String
+  gender             String
+  bio                String?
+  profilePictureUrl  String?
+
+  // Relations
+  blockedAccounts   BlockedAccount[] @relation("BlockerBlocked")
+  blockedByAccounts BlockedAccount[] @relation("BlockedBy")
+
+  following UserFollow[] @relation("Following")
+  followers UserFollow[] @relation("Followers")
+   sentRequests     FollowRequest[] @relation("SentRequests")
+  receivedRequests FollowRequest[] @relation("ReceivedRequests")
+
+  posts     Post[]
+  comments  Comment[] // Added relation field
+  likes     Like[]
+  reactions Reaction[]
+  stories Story[]
+}
+
+model BlockedAccount {
+  id        Int  @id @default(autoincrement())
+  blockerId Int
+  blockedId Int
+  blocker   User @relation("BlockerBlocked", fields: [blockerId], references: [id])
+  blocked   User @relation("BlockedBy", fields: [blockedId], references: [id])
+
+  @@unique([blockerId, blockedId])
+}
+
+model UserFollow {
+  id          Int @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+
+  follower  User @relation("Followers", fields: [followerId], references: [id])
+  following User @relation("Following", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
+}
+
+model FollowRequest {
+  id          Int      @id @default(autoincrement())
+  senderId    Int
+  receiverId  Int
+  createdAt   DateTime @default(now())
+
+  sender   User @relation("SentRequests", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedRequests", fields: [receiverId], references: [id])
+
+  @@unique([senderId, receiverId])
+}
+model Post {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  content   String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id])
+  comments  Comment[]
+  likes     Like[]
+  reactions Reaction[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  content   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+
+  // Relations
+  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+}
+
+model Reaction {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  type      String // e.g., "love", "angry", etc.
+  createdAt DateTime @default(now())
+
+  // Relations
+  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+}
+model Story {
+  id                Int      @id @default(autoincrement())
+  content           String
+  userId            Int
+  createdAt         DateTime @default(now())
+  expiresAt         DateTime
+  cloudinaryPublicId String
+  user              User     @relation(fields: [userId], references: [id])
+}

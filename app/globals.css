@@ -17,14 +17,17 @@
 }
 
 body {
-  color: rgb(var(--background-end-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--foreground-rgb))
-    )
-    rgb(var(--foreground-rgb));
+  color: black;
+  background-color: white;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: white;
+    background-color: black;
+  }
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   display: none; /* Hide scrollbars in WebKit browsers */
 }
@@ -32,16 +35,6 @@ body {
 .custom-scrollbar {
   -ms-overflow-style: none; /* Hide scrollbars in IE and Edge */
   scrollbar-width: none; /* Hide scrollbars in Firefox */
-}
-
-select input{
-  background-color: black;
-  color: white;
-}
-path {
-  stroke: black;
-  stroke-width: 1.7;
-  fill: none;
 }
 
 @layer utilities {

@@ -20,7 +20,7 @@ const formVariants = {
 };
 
 const InputField = ({ icon, type, placeholder, name, value, onChange, error, togglePasswordVisibility, showPassword }) => (
-  <div className="relative mb-6">
+  <div className="relative mb-6 ">
     {icon}
     <input
       type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
@@ -291,7 +291,7 @@ export default function Auth() {
               exit="hidden"
               transition={{ duration: 0.2 }}
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-gray-800">Login</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-black">Login</h2>
               <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
                 <motion.div variants={inputVariants}>
                   <InputField
@@ -340,7 +340,7 @@ export default function Auth() {
                   </motion.button>
                 </div>
               </form>
-              <p className="text-center text-sm text-gray-600 mt-4">
+              <p className="text-center text-sm text-gray-400 mt-4">
                 Don't have an account?{' '}
                 <button
                   onClick={() => {
@@ -484,7 +484,7 @@ export default function Auth() {
                       <button
                         type="button"
                         onClick={prevStep}
-                        className="py-3 px-6 text-gray-600 hover:underline"
+                        className="py-3 px-6 text-gray-400 hover:underline"
                       >
                         Back
                       </button>
@@ -500,7 +500,7 @@ export default function Auth() {
                   </>
                 )}
               </form>
-              <p className="text-center text-sm text-gray-600 mt-4">
+              <p className="text-center text-sm text-gray-400 mt-4">
                 Already have an account?{' '}
                 <button
                   onClick={() => {

@@ -17,26 +17,70 @@
 }
 
 body {
-  color: black;
-  background-color: white;
+  color: rgb(var(--background-end-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--foreground-rgb))
+    )
+    rgb(var(--foreground-rgb));
 }
-
-@media (prefers-color-scheme: dark) {
-  body {
-    color: white;
-    background-color: black;
-  }
-}
-
 .custom-scrollbar::-webkit-scrollbar {
   display: none; /* Hide scrollbars in WebKit browsers */
 }
 
 .custom-scrollbar {
-  -ms-overflow-style: none; /* Hide scrollbars in IE and Edge */
-  scrollbar-width: none; /* Hide scrollbars in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbars in IE and Edge /
+  scrollbar-width: none; / Hide scrollbars in Firefox */
 }
 
+select input{
+  background-color: black;
+  color: white;
+}
+input {
+  color: black;
+}
+
+path {
+  stroke: black;
+  stroke-width: 1.7;
+  fill: none;
+}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icons {
+  color: black;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;

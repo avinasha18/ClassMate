@@ -12,14 +12,25 @@ export async function GET(request) {
   }
 
   try {
+    const following = await prisma.userFollow.findMany({
+      where: { followerId: currentUserId },
+      select: {
+        followingId: true, // Assuming the `userFollow` model has a field `followingId`
+      },
+    });
+    
+    // Extracting the IDs from the `following` array
+    const followingIds = following.map(f => f.followingId);
+    
     const users = await prisma.user.findMany({
       where: {
-        id: { not: currentUserId } // Exclude the current user
+        id: {
+          notIn: [currentUserId, ...followingIds], // Exclude the current user and those already being followed
+        },
       },
       take: 10, // Limit to top 10 users
       orderBy: {
-        // Adjust this as needed, e.g., by popularity, recent activity, etc.
-        registrationNumber: 'desc'
+        registrationNumber: 'desc', // Adjust this as needed, e.g., by popularity, recent activity, etc.
       },
       select: {
         id: true,
@@ -29,6 +40,9 @@ export async function GET(request) {
         profilePictureUrl: true,
       },
     });
+    
+    console.log(users);
+    
     // console.log(users)
     return NextResponse.json(users);
   } catch (error) {

@@ -295,7 +295,7 @@ export default function Auth() {
               <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
                 <motion.div variants={inputVariants}>
                   <InputField
-                    icon={<FaUser className="absolute top-4 left-3 text-gray-400" />}
+                    icon={<FaUser className="absolute top-4 left-3 text-gray-400 icons" />}
                     type="text"
                     placeholder="College Registration Number"
                     name="registrationNumber"
@@ -306,7 +306,7 @@ export default function Auth() {
                 </motion.div>
                 <motion.div variants={inputVariants}>
                   <InputField
-                    icon={<FaLock className="absolute top-4 left-3 text-gray-400" />}
+                    icon={<FaLock className="absolute top-4 left-3 text-gray-400 icons" />}
                     type="password"
                     placeholder="Password"
                     name="password"
@@ -319,7 +319,7 @@ export default function Auth() {
                 </motion.div>
                 <motion.div variants={inputVariants}>
                   <SelectField
-                    icon={<FaSchool className="absolute top-4 left-3 text-gray-400" />}
+                    icon={<FaSchool className="absolute top-4 left-3 text-gray-400" icons/>}
                     options={colleges}
                     placeholder="Select College"
                     name="college"

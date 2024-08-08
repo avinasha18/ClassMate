@@ -1,5 +1,3 @@
-// app/api/dashboard/[userId]/posts/route.js
-
 import { NextResponse } from 'next/server';
 import prisma from '@/prisma/db/prisma';
 
@@ -18,10 +16,7 @@ export async function GET(request, { params }) {
 
   try {
     const posts = await prisma.post.findMany({
-      where: { 
-        userId: id,
-        imageUrl: { not: null } 
-      },
+      where: { userId: id },
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -36,7 +31,6 @@ export async function GET(request, { params }) {
         },
       },
     });
-    
 
     return NextResponse.json(posts);
   } catch (error) {

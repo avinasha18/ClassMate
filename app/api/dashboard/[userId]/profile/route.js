@@ -5,11 +5,11 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 
 export async function GET(request, { params }) {
-  const { id } = params;
-    console.log(id)
+  const { userId } = params;
+
   try {
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(userId) },
       select: {
         id: true,
         registrationNumber: true,
@@ -42,16 +42,31 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
-  const { id } = params;
-  const data = await request.json();
+  const { userId } = params;
+  const formData = await request.formData();
 
   try {
+    const updateData = {
+      fullName: formData.get('fullName'),
+      email: formData.get('email'),
+      tag: formData.get('tag'),
+      college: formData.get('college'),
+      gender: formData.get('gender'),
+      bio: formData.get('bio'),
+    };
+
+    const profilePicture = formData.get('profilePicture');
+    if (profilePicture) {
+      const buffer = await profilePicture.arrayBuffer();
+      const filename = `${Date.now()}-${profilePicture.name}`;
+      const filepath = path.join(process.cwd(), 'public', 'uploads', filename);
+      await writeFile(filepath, Buffer.from(buffer));
+      updateData.profilePictureUrl = `/uploads/${filename}`;
+    }
+
     const updatedUser = await prisma.user.update({
-      where: { id: parseInt(id) },
-      data: {
-        fullName: data.fullName,
-        bio: data.bio,
-      },
+      where: { id: parseInt(userId) },
+      data: updateData,
       select: {
         id: true,
         registrationNumber: true,

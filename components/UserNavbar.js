@@ -118,14 +118,14 @@ const UserNavbar = ({ id, userData }) => {
             <input
               type="text"
               placeholder="search..."
-              className="bg-transparent outline-none"
+              className="bg-transparent outline-none text-black"
               value={searchQuery}
               onChange={handleSearch}
             />
             {searchQuery ? (
-              <FaTimes className="cursor-pointer ml-2" onClick={handleClearSearch} />
+              <FaTimes className="cursor-pointer ml-2 text-gray-600" onClick={handleClearSearch} />
             ) : (
-              <FaSearch className="ml-2" />
+              <FaSearch className="ml-2 text-gray-600" />
             )}
           </div>
           <button
@@ -194,7 +194,7 @@ const UserNavbar = ({ id, userData }) => {
         >
           <div className="relative mt-3 md:hidden">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <FaSearch />
+              <FaSearch className="text-gray-600" />
             </div>
             <input
               type="text"
@@ -208,12 +208,12 @@ const UserNavbar = ({ id, userData }) => {
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
             <li>
               <Link href="/register">
-                <p className={`block py-2 pl-3 pr-4 rounded md:p-0 ${isDropdownOpen ? 'text-slate-950 bg-blue-700' : 'text-slate-950 hover:bg-gray-100'}`}>Register</p>
+                <p className="block py-2 pl-3 pr-4 rounded md:p-0 text-slate-950 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Register</p>
               </Link>
             </li>
             <li>
               <Link href="/login">
-                <p className={`block py-2 pl-3 pr-4 rounded md:p-0 ${isDropdownOpen ? 'text-slate-950 bg-blue-700' : 'text-slate-950 hover:bg-gray-100'}`}>Login</p>
+                <p className="block py-2 pl-3 pr-4 rounded md:p-0 text-slate-950 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Login</p>
               </Link>
             </li>
           </ul>
@@ -222,8 +222,8 @@ const UserNavbar = ({ id, userData }) => {
 
       {/* Search Results Dropdown */}
       {searchQuery && (
-        <div class="absolute top-full right-[100px] max-w-s w-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
-        <ul className="divide-y divide-gray-200">
+        <div className="absolute top-full right-[100px] max-w-s w-auto bg-white border border-gray-300 rounded-md shadow-lg z-50">
+          <ul className="divide-y divide-gray-200">
             {searchResults.map((user) => (
               <li key={user.id} className="flex items-center gap-7 justify-between p-2 hover:bg-gray-50 transition duration-150 ease-in-out">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">

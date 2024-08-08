@@ -3,24 +3,23 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const FollowSuggestions = ({ currentUserId }) => {
-  const [suggestions, setSuggestions] = useState([]);
+const FollowSuggestions = ({ currentUserId,suggestions }) => {
   const [followStatus, setFollowStatus] = useState({});
 
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        const response = await axios.get('/api/follow-status', {
-          params: { currentUserId }
-        });
-        setSuggestions(response.data);
-      } catch (err) {
-        console.error('Error fetching follow suggestions:', err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchSuggestions = async () => {
+  //     try {
+  //       const response = await axios.get('/api/follow-status', {
+  //         params: { currentUserId }
+  //       });
+  //       setSuggestions(response.data);
+  //     } catch (err) {
+  //       console.error('Error fetching follow suggestions:', err);
+  //     }
+  //   };
 
-    fetchSuggestions();
-  }, [currentUserId]);
+  //   fetchSuggestions();
+  // }, [currentUserId]);
 
   const handleFollow = async (userIdToFollow) => {
     try {

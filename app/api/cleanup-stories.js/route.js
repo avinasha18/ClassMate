@@ -1,7 +1,6 @@
 // pages/api/cleanup-stories.js
-import prisma from "@/lib/client";
 import { deleteCloudinaryImage } from "@/lib/cloudinary-server";
-
+import prisma from "@/prisma/db/prisma";
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {

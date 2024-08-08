@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import prisma from "@/prisma/db/prisma";
 import Image from "next/image";
 import Link from "next/link";

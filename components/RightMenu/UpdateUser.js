@@ -1,6 +1,6 @@
 "use client";
 
-import { updateProfile } from "@/lib/actions";
+// import { updateProfile } from "@/lib/actions";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import { useState } from "react";

@@ -9,11 +9,7 @@ if (process.env.NODE_ENV === 'production') {
         datasources: {
           db: {
             url: process.env.DATABASE_URL,
-          },
-        },
-        log: ['query'],
-        __internal: {
-          hooks: PrismaAccelerate({}) // Initialize Prisma Accelerate
+          }
         }
       })
 } else {
